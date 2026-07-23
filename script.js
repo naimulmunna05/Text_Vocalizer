@@ -25,7 +25,7 @@ if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = populateVoices;
 }
 
-// স্পিচ বা ভয়েস রিডিং ফাংশন
+
 speakButton.addEventListener("click", () => {
     if (synth.speaking) {
         synth.cancel();
@@ -41,24 +41,24 @@ speakButton.addEventListener("click", () => {
 
         utterThis.onstart = () => {
             waveContainer.classList.add("active");
-            speakButton.innerHTML = '<i class="fas fa-pause"></i> থামুন';
+            speakButton.innerHTML = '<i class="fas fa-pause"></i> Stop';
         };
 
         utterThis.onend = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> Play ';
         };
 
         utterThis.onerror = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
         };
 
         synth.speak(utterThis);
     }
 });
 
-// রিসেট বা পরিষ্কার করার বাটন
+
 clearButton.addEventListener("click", () => {
     synth.cancel();
     textInput.value = "";
