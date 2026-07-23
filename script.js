@@ -27,11 +27,15 @@ if (synth.onvoiceschanged !== undefined) {
 
 
 speakButton.addEventListener("click", () => {
-    if (synth.speaking) {
+    ো
+    if (synth.speaking || synth.pending) {
         synth.cancel();
+        waveContainer.classList.remove("active");
+        speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
+        return;
     }
 
-    if (textInput.value !== "") {
+    if (textInput.value.trim() !== "") {
         const utterThis = new SpeechSynthesisUtterance(textInput.value);
         const selectedVoiceIndex = voiceSelect.value;
         
@@ -41,17 +45,17 @@ speakButton.addEventListener("click", () => {
 
         utterThis.onstart = () => {
             waveContainer.classList.add("active");
-            speakButton.innerHTML = '<i class="fas fa-pause"></i> থামুন';
+            speakButton.innerHTML = '<i class="fas fa-stop"></i> Stop';
         };
 
         utterThis.onend = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
         };
 
         utterThis.onerror = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
         };
 
         synth.speak(utterThis);
@@ -63,5 +67,5 @@ clearButton.addEventListener("click", () => {
     synth.cancel();
     textInput.value = "";
     waveContainer.classList.remove("active");
-    speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
+    speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
 });
