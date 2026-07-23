@@ -1,23 +1,29 @@
-# 🎙️ Text Vocalizer Pro
+# 🚀 Text Vocalizer Pro
 
-> A web app that converts text into speech with adjustable pitch, rate, and volume.
+<p align="center">
+  <b>Transform text into natural-sounding speech instantly with advanced voice controls.</b>
+</p>
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://naimulmunna05.github.io/Text_Vocalizer/)
+<p align="center">
+  <a href="https://naimulmunna05.github.io/Text_Vocalizer/">
+    <img src="https://img.shields.io/badge/🔥_Live_Demo-Click_Here-brightgreen?style=for-the-badge&logo=vercel" alt="Live Demo">
+  </a>
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge" alt="Status">
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License">
+</p>
 
+---
 
-## ✨ Features
-Natural Voice: Uses browser-native Speech Synthesis.
+## ⚡ Core Features
 
-Custom Voices: Select from available system voices and languages.
+* 🗣️ Natural Speech: Powered by the browser's native Speech Synthesis API.
+* 🌍 Voice Selection: Choose from multiple system voices and languages effortlessly.
+* 🎚️ Live Controls: Fine-tune **Pitch**, **Rate (Speed)**, and **Volume** in real time.
+* 📱 Modern UI: Clean, responsive, and sleek interface for all devices.
+* ⚡ Zero Config: Lightweight, pure vanilla web application.
 
-Dynamic Controls: Adjust pitch, rate, and volume on the fly.
+---
 
-Sleek UI: Clean, modern, and fully responsive.
+## 🛠️ Tech Stack
 
-## 🛠️ Built With
-
-This project is crafted using foundational web technologies:
-* **HTML5** - Structure and layout
-* **CSS3** - Styling, modern flexbox/grid, and animations
-* **JavaScript (ES6+)** - Core logic and SpeechSynthesis API integration
-
+* Frontend**: `HTML5` • `CSS3` • `JavaScript (ES6+)`
