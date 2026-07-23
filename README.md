@@ -6,9 +6,8 @@
 
 <p align="center">
   <a href="https://naimulmunna05.github.io/Text_Vocalizer/">
-    <img src="https://img.shields.io/badge/🎙️_Live_Demo-Click_Here-brightgreen?style=for-the-badge&logo=vercel" alt="Live Demo">
+    <img src="https://img.shields.io/badge/🚀_EXPLORE_LIVE_DEMO-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
   </a>
-  
 </p>
 
 ---
