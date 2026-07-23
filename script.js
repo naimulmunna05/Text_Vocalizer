@@ -12,6 +12,13 @@ function populateVoices() {
     voices = synth.getVoices();
     voiceSelect.innerHTML = "";
     
+    if (voices.length === 0) {
+        const option = document.createElement("option");
+        option.textContent = "Loading voices...";
+        voiceSelect.appendChild(option);
+        return;
+    }
+
     voices.forEach((voice, index) => {
         const option = document.createElement("option");
         option.value = index;
@@ -20,18 +27,33 @@ function populateVoices() {
     });
 }
 
+// Initial voice load attempt
 populateVoices();
+
 if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = populateVoices;
 }
 
+// Backup interval to ensure voices load properly in all browsers
+let voiceCheckInterval = setInterval(() => {
+    if (voices.length > 0) {
+        populateVoices();
+        clearInterval(voiceCheckInterval);
+    } else {
+        populateVoices();
+    }
+}, 100);
 
+// Speech synthesis and playback control
 speakButton.addEventListener("click", () => {
-    if (synth.speaking) {
+    if (synth.speaking || synth.pending) {
         synth.cancel();
+        waveContainer.classList.remove("active");
+        speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
+        return;
     }
 
-    if (textInput.value !== "") {
+    if (textInput.value.trim() !== "") {
         const utterThis = new SpeechSynthesisUtterance(textInput.value);
         const selectedVoiceIndex = voiceSelect.value;
         
@@ -41,12 +63,12 @@ speakButton.addEventListener("click", () => {
 
         utterThis.onstart = () => {
             waveContainer.classList.add("active");
-            speakButton.innerHTML = '<i class="fas fa-pause"></i> Stop';
+            speakButton.innerHTML = '<i class="fas fa-stop"></i> Stop';
         };
 
         utterThis.onend = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> Play ';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
         };
 
         utterThis.onerror = () => {
@@ -58,10 +80,10 @@ speakButton.addEventListener("click", () => {
     }
 });
 
-
+// Clear button functionality
 clearButton.addEventListener("click", () => {
     synth.cancel();
     textInput.value = "";
     waveContainer.classList.remove("active");
-    speakButton.innerHTML = '<i class="fas fa-play"></i> play ';
+    speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
 });
