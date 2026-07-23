@@ -2,39 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Vocalizer Pro</title>
+    <title>Text Vocalizer Pro - Advanced TTS</title>
     <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Background Animated Glow Elements -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
     <div class="container">
-        <h2>Text <span>Vocalizer</span></h2>
-        
-        <textarea id="text" placeholder="Type or paste your text here..."></textarea>
-        
-        <div class="settings-row">
-            <div class="input-group">
-                <label for="voices"> Select Voice  </label>
-                <select id="voices"></select>
+        <div class="header">
+            <h2><i class="fas fa-waveform-lines"></i> Text <span>Vocalizer</span> Pro</h2>
+            <p>Transform your text into lifelike speech instantly</p>
+        </div>
+
+        <div class="input-group">
+            <textarea id="text" placeholder="Type or paste your text here to vocalize..."></textarea>
+            <div class="counter-badge">
+                <span id="wordCount">0</span> words | <span id="charCount">0</span> chars
             </div>
         </div>
 
-        <div class="buttons">
-            <button class="btn-speak" id="speakBtn"><i class="fas fa-play"></i> Play </button>
-            <button class="btn-clear" id="clearBtn"><i class="fas fa-trash"></i> Reset </button>
+        <div class="controls-grid">
+            <div class="control-item">
+                <label for="voices"><i class="fas fa-microphone-lines"></i> Select Voice</label>
+                <select id="voices">
+                    <option value="">Loading voices...</option>
+                </select>
+            </div>
+
+            <div class="sliders-row">
+                <div class="control-item">
+                    <label for="rate">Speed: <span id="rateValue">1x</span></label>
+                    <input type="range" id="rate" min="0.5" max="2" value="1" step="0.1">
+                </div>
+                <div class="control-item">
+                    <label for="pitch">Pitch: <span id="pitchValue">1</span></label>
+                    <input type="range" id="pitch" min="0.5" max="2" value="1" step="0.1">
+                </div>
+            </div>
         </div>
 
-        <!-- Sound wave animation -->
+        <!-- Waveform Animation -->
         <div class="wave-container" id="waveContainer">
-            <div class="wave"></div>
-            <div class="wave"></div>
-            <div class="wave"></div>
-            <div class="wave"></div>
-            <div class="wave"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
+
+        <div class="btn-group">
+            <button id="speakBtn" class="btn primary-btn"><i class="fas fa-play"></i> Play Speech</button>
+            <button id="clearBtn" class="btn danger-btn"><i class="fas fa-trash-can"></i> Reset</button>
         </div>
     </div>
 
