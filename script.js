@@ -13,9 +13,9 @@ function populateVoices() {
     voiceSelect.innerHTML = "";
     
     if (voices.length === 0) {
-        // যদি কোনো কারণে ভয়েস না আসে, তবে ডিফল্ট অপশন দেখাবে
+        // যদি ভয়েস না আসে, একটি ডিফল্ট অপশন রাখবে
         const option = document.createElement("option");
-        option.textContent = "Default Voice";
+        option.textContent = "Loading voices...";
         voiceSelect.appendChild(option);
         return;
     }
@@ -28,13 +28,14 @@ function populateVoices() {
     });
 }
 
-// প্রথমবার কল করা
+// কিছু ব্রাউজারে ভয়েস লোড হতে সময় লাগে, তাই একাধিকবার চেক করার ব্যবস্থা
 populateVoices();
-
-// ব্রাউজারে ভয়েস লিস্ট চেঞ্জ বা লোড হলে এটি অটোমেটিক কাজ করবে
 if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = populateVoices;
 }
+
+// ব্যাকআপ হিসেবে ১ সেকেন্ড পর আবার কল করা হলো যাতে মিস না হয়
+setTimeout(populateVoices, 1000);
 
 // স্পিচ বা ভয়েস রিডিং ফাংশন
 speakButton.addEventListener("click", () => {
