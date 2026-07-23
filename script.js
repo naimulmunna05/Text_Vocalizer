@@ -27,14 +27,12 @@ function populateVoices() {
     });
 }
 
-// Initial voice load attempt
 populateVoices();
 
 if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = populateVoices;
 }
 
-// Backup interval to ensure voices load properly in all browsers
 let voiceCheckInterval = setInterval(() => {
     if (voices.length > 0) {
         populateVoices();
@@ -44,9 +42,10 @@ let voiceCheckInterval = setInterval(() => {
     }
 }, 100);
 
-// Speech synthesis and playback control
+// Play / Stop functionality fix
 speakButton.addEventListener("click", () => {
-    if (synth.speaking || synth.pending) {
+    // যদি অলরেডি কথা বলা চলতে থাকে, তবে সাথে সাথে থামিয়ে দেবো
+    if (synth.speaking) {
         synth.cancel();
         waveContainer.classList.remove("active");
         speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
@@ -54,6 +53,9 @@ speakButton.addEventListener("click", () => {
     }
 
     if (textInput.value.trim() !== "") {
+        // যেকোনো পুরানো স্পিচ ক্লিয়ার করে নতুন করে শুরু করা
+        synth.cancel();
+
         const utterThis = new SpeechSynthesisUtterance(textInput.value);
         const selectedVoiceIndex = voiceSelect.value;
         
