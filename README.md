@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://naimulmunna05.github.io/Text_Vocalizer/">
-    <img src="https://img.shields.io/badge/🔥_Demo-brightgreen?style=for-the-badge&logo=vercel" alt="Demo">
+    <img src="https://img.shields.io/badge/_Demo-brightgreen?style=for-the-badge&logo=vercel" alt="Demo">
   </a>
   
 </p>
