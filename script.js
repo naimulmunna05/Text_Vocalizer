@@ -12,6 +12,14 @@ function populateVoices() {
     voices = synth.getVoices();
     voiceSelect.innerHTML = "";
     
+    if (voices.length === 0) {
+        // যদি কোনো কারণে ভয়েস না আসে, তবে ডিফল্ট অপশন দেখাবে
+        const option = document.createElement("option");
+        option.textContent = "Default Voice";
+        voiceSelect.appendChild(option);
+        return;
+    }
+
     voices.forEach((voice, index) => {
         const option = document.createElement("option");
         option.value = index;
@@ -20,14 +28,16 @@ function populateVoices() {
     });
 }
 
+// প্রথমবার কল করা
 populateVoices();
+
+// ব্রাউজারে ভয়েস লিস্ট চেঞ্জ বা লোড হলে এটি অটোমেটিক কাজ করবে
 if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = populateVoices;
 }
 
-
+// স্পিচ বা ভয়েস রিডিং ফাংশন
 speakButton.addEventListener("click", () => {
-    ো
     if (synth.speaking || synth.pending) {
         synth.cancel();
         waveContainer.classList.remove("active");
@@ -62,7 +72,7 @@ speakButton.addEventListener("click", () => {
     }
 });
 
-
+// রিসেট বা পরিষ্কার করার বাটন
 clearButton.addEventListener("click", () => {
     synth.cancel();
     textInput.value = "";
