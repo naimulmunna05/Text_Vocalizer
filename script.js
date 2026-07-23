@@ -25,10 +25,26 @@ function populateVoices() {
         return;
     }
 
+    // বাংলা, আরবি ও চাইনিজ ভয়েসগুলো যেন সবার উপরে বা সহজে খুঁজে পাওয়া যায় সেভাবে সাজানো
+    voices.sort((a, b) => {
+        const langA = a.lang.toLowerCase();
+        const langB = b.lang.toLowerCase();
+        if (langA.includes('bn') || langA.includes('ar') || langA.includes('zh')) return -1;
+        if (langB.includes('bn') || langB.includes('ar') || langB.includes('zh')) return 1;
+        return 0;
+    });
+
     voices.forEach((voice, index) => {
         const option = document.createElement("option");
         option.value = index;
-        option.textContent = `${voice.name} (${voice.lang})`;
+        
+        let labelTag = "";
+        const l = voice.lang.toLowerCase();
+        if (l.includes('bn')) labelTag = " [Bangla]";
+        else if (l.includes('ar')) labelTag = " [Arabic]";
+        else if (l.includes('zh')) labelTag = " [Chinese]";
+
+        option.textContent = `${voice.name} (${voice.lang})${labelTag}`;
         voiceSelect.appendChild(option);
     });
 }
@@ -56,7 +72,7 @@ textInput.addEventListener("input", () => {
     wordCount.textContent = words;
 });
 
-// Update slider visual values
+// Update slider values
 rateInput.addEventListener("input", () => {
     rateValue.textContent = rateInput.value + "x";
 });
