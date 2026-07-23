@@ -12,14 +12,6 @@ function populateVoices() {
     voices = synth.getVoices();
     voiceSelect.innerHTML = "";
     
-    if (voices.length === 0) {
-        // যদি ভয়েস না আসে, একটি ডিফল্ট অপশন রাখবে
-        const option = document.createElement("option");
-        option.textContent = "Loading voices...";
-        voiceSelect.appendChild(option);
-        return;
-    }
-
     voices.forEach((voice, index) => {
         const option = document.createElement("option");
         option.value = index;
@@ -28,25 +20,18 @@ function populateVoices() {
     });
 }
 
-// কিছু ব্রাউজারে ভয়েস লোড হতে সময় লাগে, তাই একাধিকবার চেক করার ব্যবস্থা
 populateVoices();
 if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = populateVoices;
 }
 
-// ব্যাকআপ হিসেবে ১ সেকেন্ড পর আবার কল করা হলো যাতে মিস না হয়
-setTimeout(populateVoices, 1000);
-
 // স্পিচ বা ভয়েস রিডিং ফাংশন
 speakButton.addEventListener("click", () => {
-    if (synth.speaking || synth.pending) {
+    if (synth.speaking) {
         synth.cancel();
-        waveContainer.classList.remove("active");
-        speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
-        return;
     }
 
-    if (textInput.value.trim() !== "") {
+    if (textInput.value !== "") {
         const utterThis = new SpeechSynthesisUtterance(textInput.value);
         const selectedVoiceIndex = voiceSelect.value;
         
@@ -56,17 +41,17 @@ speakButton.addEventListener("click", () => {
 
         utterThis.onstart = () => {
             waveContainer.classList.add("active");
-            speakButton.innerHTML = '<i class="fas fa-stop"></i> Stop';
+            speakButton.innerHTML = '<i class="fas fa-pause"></i> থামুন';
         };
 
         utterThis.onend = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
         };
 
         utterThis.onerror = () => {
             waveContainer.classList.remove("active");
-            speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
+            speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
         };
 
         synth.speak(utterThis);
@@ -78,5 +63,5 @@ clearButton.addEventListener("click", () => {
     synth.cancel();
     textInput.value = "";
     waveContainer.classList.remove("active");
-    speakButton.innerHTML = '<i class="fas fa-play"></i> Play';
+    speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
 });
