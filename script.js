@@ -63,5 +63,5 @@ clearButton.addEventListener("click", () => {
     synth.cancel();
     textInput.value = "";
     waveContainer.classList.remove("active");
-    speakButton.innerHTML = '<i class="fas fa-play"></i> প্লে করুন';
+    speakButton.innerHTML = '<i class="fas fa-play"></i> play ';
 });
